@@ -26,7 +26,7 @@ async function sendNotify(text, desp) {
     method: 'POST'
   }
   await rp.post(options).then(res => {
-    console.log('发送通知失败', res)
+    console.log('发送通知成功', res)
   }).catch((err) => {
     console.log('发送通知失败', err)
   })

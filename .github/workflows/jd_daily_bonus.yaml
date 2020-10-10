@@ -1,10 +1,6 @@
 name: 京东每日签到
 
 on:
-    push:
-      branches: [ main ]
-    pull_request:
-      branches: [ main ]
     workflow_dispatch:
     schedule:
         - cron: "11 10 * * *"

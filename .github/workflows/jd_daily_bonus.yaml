@@ -4,13 +4,10 @@ on:
     workflow_dispatch:
     schedule:
         - cron: "11 10 * * *"
-    watch:
-        types: [started]
         
 jobs:
     build:
         runs-on: ubuntu-latest
-        if: github.event.repository.owner.id == github.event.sender.id
         steps:
             - name: Checkout codes
               uses: actions/checkout@v2

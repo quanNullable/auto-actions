@@ -1,0 +1,9 @@
+{
+  "name": "auto_bot",
+  "version": "1.0.0",
+  "description": "自动执行机器人",
+  "author": "quan",
+  "dependencies": {
+    "download": "^8.0.0"
+  }
+}

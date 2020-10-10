@@ -1,7 +1,6 @@
 const exec = require("child_process").execSync;
 const fs = require("fs");
 const download = require("download");
-const smartReplace = require("./smartReplace");
 
 // 公共变量
 const Secrets = {
@@ -13,8 +12,8 @@ async function downFile() {
   await download(Secrets.SyncUrl, "./", { filename: "temp.js" });
 }
 
-async function changeFiele(content, cookie) {
-  let newContent = await smartReplace.replaceWithSecrets(content, Secrets, cookie);
+async function changeFile(content, cookie) {
+  let newContent = content.replace(/var Key = ''/, `var Key = '${cookie}'`)
   await fs.writeFileSync("./execute.js", newContent, "utf8");
 }
 
@@ -39,7 +38,7 @@ async function executeOneByOne() {
   const content = await fs.readFileSync("./temp.js", "utf8");
   for (var i = 0; i < cookieJDs.length; i++) {
     console.log(`正在执行第${i + 1}个账号签到任务`);
-    await changeFiele(content, cookieJDs[i]);
+    await changeFile(content, cookieJDs[i]);
     console.log("替换变量完毕");
     try {
       await exec("node execute.js  >> result.txt", { stdio: "inherit" });

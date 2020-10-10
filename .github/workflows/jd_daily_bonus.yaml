@@ -1,0 +1,27 @@
+name: 京东每日签到
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: "11 10 * * *"
+    watch:
+        types: [started]
+        
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        if: github.event.repository.owner.id == github.event.sender.id
+        steps:
+            - name: Checkout codes
+              uses: actions/checkout@v2
+            - name: Use Node.js
+              uses: actions/setup-node@v1
+              with:
+                  node-version: "12.x"
+            - name: Run app
+              run: npm install
+            - run: node jdSign.js
+              env:
+                  JD_COOKIE: ${{ secrets.JD_COOKIE }}
+                  PUSH_KEY: ${{ secrets.PUSH_KEY }}
+                  SYNCURL: https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js

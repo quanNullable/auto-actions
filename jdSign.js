@@ -19,7 +19,7 @@ async function changeFile(content, cookie) {
 
 async function sendNotify(text, desp) {
   const options = {
-    uri: `https://sc.ftqq.com/${PUSH_KEY}.send`,
+    uri: `https://sc.ftqq.com/${Secrets.PUSH_KEY}.send`,
     form: { text, desp },
     json: true,
     method: 'POST'
@@ -64,7 +64,7 @@ async function start() {
   console.log("下载代码完毕");
   await executeOneByOne();
   console.log("全部执行完毕");
-  if (PUSH_KEY) {
+  if (Secrets.PUSH_KEY) {
     const path = "./result.txt";
     let content = "";
     if (fs.existsSync(path)) {

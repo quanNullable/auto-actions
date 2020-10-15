@@ -23,9 +23,9 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install setuptools
       run: |
-        sudo wget https://pypi.python.org/packages/source/s/setuptools/setuptools-0.6c11.tar.gz
-        tar -xvf setuptools-0.6c11.tar.gz
-        cd setuptools-0.6c11
+        sudo wget https://pypi.python.org/packages/source/s/setuptools/setuptools-19.6.tar.gz#md5=c607dd118eae682c44ed146367a17e26
+        tar -zxvf setuptools-19.6.tar.gz
+        cd setuptools-19.6
         sudo python3 setup.py build
         sudo python3 setup.py install
     - name: Install Blinker

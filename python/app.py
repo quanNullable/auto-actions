@@ -1,7 +1,7 @@
 from Blinker import Blinker, BlinkerButton
 import os
 
-blinkerId = 'a1903d20dcb6'
+blinkerId = 'd8c7d2305fa0'
 Blinker.mode("BLINKER_WIFI")
 Blinker.begin(blinkerId)
 print(os.environ["BLINKER_ID"])

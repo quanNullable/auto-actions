@@ -26,9 +26,7 @@ jobs:
         pip3 install setuptools
     - name: Install Blinker
       run: |
-         sudo rm -rf /var/lib/dpkg/lock 
-         sudo rm -rf /var/cache/apt/archives/lock  
-         apt install libgirepository1.0-dev
+         sudo apt install libgirepository1.0-dev
          git clone https://github.com/blinker-iot/blinker-py
          cd blinker-py
          python3 setup.py install

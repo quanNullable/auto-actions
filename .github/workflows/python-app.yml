@@ -25,4 +25,4 @@ jobs:
       run: |
         python python/python.py
       env:
-          PUSH_KEY: ${{ secrets.PUSH_KEY }}
+          BLINKER_ID: ${{ secrets.BLINKER_ID }}

@@ -5,7 +5,9 @@ name: Blinker服务器
 
 on:
   workflow_dispatch:
-  
+  push:
+    branches:
+      - main
 jobs:
   build:
 
@@ -29,8 +31,8 @@ jobs:
          sudo apt install libgirepository1.0-dev
          git clone https://github.com/blinker-iot/blinker-py
          cd blinker-py
-         python3 setup.py install
-         pip3 install -r requirements.txt
+         sudo python3 setup.py install
+         sudo pip3 install -r requirements.txt
     - name: Run app
       env:
           BLINKER_ID: ${{ secrets.BLINKER_ID }}

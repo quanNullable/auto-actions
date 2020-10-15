@@ -23,7 +23,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install setuptools
       run: |
-        wget http://pypi.python.org/packages/source/s/setuptools/setuptools-0.6c11.tar.gz
+        sudo wget https://pypi.python.org/packages/source/s/setuptools/setuptools-0.6c11.tar.gz
         tar -xvf setuptools-0.6c11.tar.gz
         cd setuptools-0.6c11
         sudo python setup.py build

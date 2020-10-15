@@ -24,16 +24,16 @@ jobs:
     - name: Install setuptools
       run: |
          wget https://pypi.python.org/packages/source/s/setuptools/setuptools-19.6.tar.gz#md5=c607dd118eae682c44ed146367a17e26
-        tar -zxvf setuptools-19.6.tar.gz
-        cd setuptools-19.6
+         tar -zxvf setuptools-19.6.tar.gz
+         cd setuptools-19.6
          python3 setup.py build
          python3 setup.py install
          pip3 install setuptools -U
     - name: Install Blinker
       run: |
          apt install libgirepository1.0-dev
-        git clone https://github.com/blinker-iot/blinker-py
-        cd blinker-py
+         git clone https://github.com/blinker-iot/blinker-py
+         cd blinker-py
          python3 setup.py install
          pip3 install -r requirements.txt
     - name: Run app

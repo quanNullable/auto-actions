@@ -18,7 +18,7 @@ jobs:
             - name: Install dependencies
               run: npm install
             - name: Run app
-              run: node jdSign.js
+              run: node js/jdSign.js
               env:
                   JD_COOKIE: ${{ secrets.JD_COOKIE }}
                   PUSH_KEY: ${{ secrets.PUSH_KEY }}

@@ -4,7 +4,7 @@ import os
 blinkerId = 'a1903d20dcb6'
 Blinker.mode("BLINKER_WIFI")
 Blinker.begin(blinkerId)
-
+print(os.environ["BLINKER_ID"])
 buttonRestart = BlinkerButton("btn-restart")
 
 def restart_callback(state):

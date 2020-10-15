@@ -27,6 +27,7 @@ jobs:
     - name: Install Blinker
       run: |
          apt install libgirepository1.0-dev
+         sudo rm /var/lib/dpkg/lock
          git clone https://github.com/blinker-iot/blinker-py
          cd blinker-py
          python3 setup.py install

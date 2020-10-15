@@ -23,6 +23,6 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run app
       run: |
-        sudo python3 python/python.py
+         python3 python/python.py
       env:
           BLINKER_ID: ${{ secrets.BLINKER_ID }}

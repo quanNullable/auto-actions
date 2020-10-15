@@ -26,8 +26,8 @@ jobs:
         sudo wget https://pypi.python.org/packages/source/s/setuptools/setuptools-0.6c11.tar.gz
         tar -xvf setuptools-0.6c11.tar.gz
         cd setuptools-0.6c11
-        sudo python setup.py build
-        sudo python setup.py install
+        sudo python3 setup.py build
+        sudo python3 setup.py install
     - name: Install Blinker
       run: |
         sudo apt install libgirepository1.0-dev
@@ -39,4 +39,4 @@ jobs:
       env:
           BLINKER_ID: ${{ secrets.BLINKER_ID }}
       run: |
-        python python/app.py
+        python3 python/app.py

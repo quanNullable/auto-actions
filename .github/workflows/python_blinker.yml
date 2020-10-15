@@ -23,12 +23,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install setuptools
       run: |
-         wget https://pypi.python.org/packages/source/s/setuptools/setuptools-19.6.tar.gz#md5=c607dd118eae682c44ed146367a17e26
-         tar -zxvf setuptools-19.6.tar.gz
-         cd setuptools-19.6
-         python3 setup.py build
-         python3 setup.py install
-         pip3 install setuptools -U
+        pip3 install setuptools
     - name: Install Blinker
       run: |
          apt install libgirepository1.0-dev
@@ -37,6 +32,7 @@ jobs:
          python3 setup.py install
          pip3 install -r requirements.txt
     - name: Run app
-      run:  python3 python/app.py
       env:
           BLINKER_ID: ${{ secrets.BLINKER_ID }}
+      run: |
+         python3 python/app.py

@@ -37,6 +37,6 @@ jobs:
         sudo python3 setup.py install
         sudo pip3 install -r requirements.txt
     - name: Run app
+      run: sudo python3 python/app.py
       env:
           BLINKER_ID: ${{ secrets.BLINKER_ID }}
-      run: sudo python3 python/app.py

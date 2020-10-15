@@ -27,6 +27,7 @@ jobs:
         git clone https://github.com/blinker-iot/blinker-py
         cd blinker-py
         sudo pip3 install -r requirements.txt
+        sudo apt-get install python3-setuptools
         sudo python3 setup.py install
     - name: Run app
       env:

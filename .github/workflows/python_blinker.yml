@@ -39,5 +39,4 @@ jobs:
     - name: Run app
       env:
           BLINKER_ID: ${{ secrets.BLINKER_ID }}
-      run: |
-        sudo python3 python/app.py
+      run: sudo python3 python/app.py

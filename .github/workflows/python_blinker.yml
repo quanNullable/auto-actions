@@ -27,6 +27,8 @@ jobs:
     - name: Install Blinker
       run: |
          sudo rm /var/lib/dpkg/lock-frontend
+         sudo rm /var/lib/dpkg/lock
+         sudo apt install p7zip-full
          apt install libgirepository1.0-dev
          git clone https://github.com/blinker-iot/blinker-py
          cd blinker-py

@@ -25,16 +25,15 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install setuptools
       run: |
-         sudo su
-         pip3 install setuptools
+         sudo pip3 install setuptools
     - name: Install Blinker
       run: |
-         apt install libgirepository1.0-dev
+         sudo apt install libgirepository1.0-dev
          git clone https://github.com/blinker-iot/blinker-py
          cd blinker-py
-         python3 setup.py install
-         pip3 install -r requirements.txt
+         sudo python3 setup.py install
+         sudo pip3 install -r requirements.txt
     - name: Run app
-      env:
+      run: sudo python3 python/app.py
+      env: #通过sudo执行的环境变量无效
           BLINKER_ID: ${{ secrets.BLINKER_ID }}
-      run: python3 python/app.py

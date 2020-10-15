@@ -23,7 +23,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Install setuptools
       run: |
-        pip3 install setuptools
+         sudo pip3 install setuptools
     - name: Install Blinker
       run: |
          sudo apt install libgirepository1.0-dev

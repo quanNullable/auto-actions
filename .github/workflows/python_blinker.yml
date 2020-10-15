@@ -27,7 +27,7 @@ jobs:
         tar -xvf setuptools-0.6c11.tar.gz
         cd setuptools-0.6c11
         sudo python setup.py build
-        sudo python setup.py instal
+        sudo python setup.py install
     - name: Install Blinker
       run: |
         sudo apt install libgirepository1.0-dev

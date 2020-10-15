@@ -1,15 +1,23 @@
-# -*- coding: utf-8 -*-
-# 主入口
+from Blinker import Blinker, BlinkerButton
+import os
 
-import web
+blinkerId = os.environ["BLINKER_ID"]
+Blinker.mode("BLINKER_WIFI")
+Blinker.begin(blinkerId)
 
-urls = (
-    '/wx', 'Handle',
-)
+buttonRestart = BlinkerButton("btn-restart")
+
+def restart_callback(state):
+    buttonRestart.print(state)
+    Blinker.print('result:'+state)
+    
+
+def data_callback(data):
+    Blinker.print('收到:'+data)
+
+buttonRestart.attach(restart_callback)
+Blinker.attachData(data_callback)
 
 if __name__ == '__main__':
-    try:
-        app = web.application(urls, globals())
-        app.run()
-    except Exception as e:
-        print('控制器启动失败',e)
+    while True:
+        Blinker.run()

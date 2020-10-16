@@ -3,6 +3,8 @@ import  {execSync as exec} from 'child_process'
 import  download from 'download'
 import { sendNotify } from '../publicTools/notice.js'
 
+console.log("开始执行脚本")
+
 // 公共变量
 const Secrets = {
   JD_COOKIE: process.env.JD_COOKIE, //cokie,多个用&隔开即可
@@ -96,7 +98,7 @@ function formatSeconds(value) {
 }
 
 var time = Math.random() * 1000 * 60 * 60 * 3
-console.log(formatSeconds(time / 1000) + "后开始执行")
+console.log(formatSeconds(time / 1000) + "后开始执行签到")
 setTimeout(() => {
   start()
 }, time);

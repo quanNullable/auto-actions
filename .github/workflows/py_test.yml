@@ -19,7 +19,7 @@ jobs:
         python-version: 3.8
     - name: Install dependencies
       run: |
-        sudo python3 -m pip3 install --upgrade pip
+        sudo python3 -m pip install --upgrade pip
         if [ -f python/requirements.txt ]; then sudo pip3 install -r python/requirements.txt; fi
     - name: Run app
       run: python3 python/public/test.py

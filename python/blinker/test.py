@@ -19,7 +19,7 @@ if __name__ == '__main__':
       #  result = controllers.handText("小爱同学：叫爸爸",MANAGER)
       #  print('result:',result)
       #  result = controllers.handText("执行任务:name=_startLotteries")
-       result = controllers.handText("获取ip")
+       result = controllers.handText("任务详情")
        print('result',result)
       # autoFollow()
     # task.startTasks()

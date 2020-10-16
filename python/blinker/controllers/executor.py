@@ -24,7 +24,13 @@ def executCommand(command):
         elif command.Name == ALL_COMANDS[3].Name:  #任务详情
             result = task.getJobs()
         elif command.Name == ALL_COMANDS[4].Name:  #立即执行任务
-            result = _runTaskRightNow()
+            if 'name' in command.Parmas:
+                funcName = command.Parmas['name']
+                threading.Thread(
+                    target=_runTaskRightNow, args=(funcName, )).start()
+                result = '已开始执行'
+            else:
+                result = '参数错误'
         else:
             result = '暂未完成'
         Logger.v('命令<' + command.Name + '>执行结果<' + str(result) + '>')
@@ -68,14 +74,3 @@ def _getCommandsHelp():
     else:
         return formatCommands(ALL_COMANDS)
 
-
-def _runTaskRightNow(user, funcName):
-    func = getattr(task, funcName, None)
-    if func is None:
-        sendTextMsg(user.Id, '未找到指定任务')
-    else:
-        if callable(func):
-            Logger.v('开始执行' + funcName)
-            func(True)
-        else:
-            Logger.e(func + '无法执行', 'not callable')

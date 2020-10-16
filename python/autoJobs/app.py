@@ -12,7 +12,6 @@ from tasks.wechatLottery import joinWechatLottery
 def startAllTasks():
     Logger.v('开始执行网易星球自动收取钻石')
     autoCollectCoins()
-    return
     Logger.v('开始执行微信抽奖')
     joinWechatLottery()
     Logger.v('开始执行百度自动收元气')

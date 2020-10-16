@@ -4,8 +4,8 @@
 name: Blinker服务器
 
 on:
-  schedule:
-      - cron: "0 16 * * *"
+  # schedule:
+  #     - cron: "0 16 * * *"
   workflow_dispatch:
   # push:
   #   branches:

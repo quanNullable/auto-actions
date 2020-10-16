@@ -3,7 +3,10 @@ from tools.path import addParentDir
 addParentDir()
 from public.config import getGeneralConfig
 from public.logger import Logger
+import controllers.controller as controllers
 import task
+
+Logger.v("尝试启动Blinker...")
 
 blinkerId = getGeneralConfig()['blinker_id']
 Blinker.mode("BLINKER_WIFI")

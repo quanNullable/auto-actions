@@ -1,13 +1,12 @@
-const exec = require("child_process").execSync;
-const fs = require("fs");
-const download = require("download");
-const rp = require("request-promise");
+import  fs from 'fs'
+import  {execSync as exec} from 'child_process'
+import  download from 'download'
+import { sendNotify } from '../publicTools/notice.js'
 
 // 公共变量
 const Secrets = {
   JD_COOKIE: process.env.JD_COOKIE, //cokie,多个用&隔开即可
   SyncUrl: process.env.SYNCURL, //签到地址,方便随时变动
-  PUSH_KEY: process.env.PUSH_KEY, //server酱推送消息
 };
 async function downFile() {
   await download(Secrets.SyncUrl, "./", { filename: "temp.js" });
@@ -16,20 +15,6 @@ async function downFile() {
 async function changeFile(content, cookie) {
   let newContent = content.replace(/var Key = ''/, `var Key = '${cookie}'`)
   await fs.writeFileSync("./execute.js", newContent, "utf8");
-}
-
-async function sendNotify(text, desp) {
-  const options = {
-    uri: `https://sc.ftqq.com/${Secrets.PUSH_KEY}.send`,
-    form: { text, desp },
-    json: true,
-    method: 'POST'
-  }
-  await rp.post(options).then(res => {
-    console.log('发送通知成功', res)
-  }).catch((err) => {
-    console.log('发送通知失败', err)
-  })
 }
 
 async function executeOneByOne() {
@@ -76,39 +61,39 @@ async function start() {
   }
 }
 
-function formatSeconds(value) { 
+function formatSeconds(value) {
   var theTime = parseInt(value);// 需要转换的时间秒 
   var theTime1 = 0;// 分 
   var theTime2 = 0;// 小时 
   var theTime3 = 0;// 天
-  if(theTime > 60) { 
-      theTime1 = parseInt(theTime/60); 
-      theTime = parseInt(theTime%60); 
-      if(theTime1 > 60) { 
-          theTime2 = parseInt(theTime1/60); 
-          theTime1 = parseInt(theTime1%60); 
-          if(theTime2 > 24){
-              //大于24小时
-              theTime3 = parseInt(theTime2/24);
-              theTime2 = parseInt(theTime2%24);
-          }
-      } 
-  } 
+  if (theTime > 60) {
+    theTime1 = parseInt(theTime / 60);
+    theTime = parseInt(theTime % 60);
+    if (theTime1 > 60) {
+      theTime2 = parseInt(theTime1 / 60);
+      theTime1 = parseInt(theTime1 % 60);
+      if (theTime2 > 24) {
+        //大于24小时
+        theTime3 = parseInt(theTime2 / 24);
+        theTime2 = parseInt(theTime2 % 24);
+      }
+    }
+  }
   var result = '';
-  if(theTime > 0){
-      result = ""+parseInt(theTime)+"秒";
+  if (theTime > 0) {
+    result = "" + parseInt(theTime) + "秒";
   }
-  if(theTime1 > 0) { 
-      result = ""+parseInt(theTime1)+"分"+result; 
-  } 
-  if(theTime2 > 0) { 
-      result = ""+parseInt(theTime2)+"小时"+result; 
-  } 
-  if(theTime3 > 0) { 
-      result = ""+parseInt(theTime3)+"天"+result; 
+  if (theTime1 > 0) {
+    result = "" + parseInt(theTime1) + "分" + result;
   }
-  return result; 
-} 
+  if (theTime2 > 0) {
+    result = "" + parseInt(theTime2) + "小时" + result;
+  }
+  if (theTime3 > 0) {
+    result = "" + parseInt(theTime3) + "天" + result;
+  }
+  return result;
+}
 
 var time = Math.random() * 1000 * 60 * 60 * 3
 console.log(formatSeconds(time / 1000) + "后开始执行")

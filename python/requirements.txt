@@ -1,1 +1,5 @@
-web
+smtplib
+email
+configparser
+requests
+apscheduler

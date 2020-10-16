@@ -3,7 +3,7 @@ from tools.path import addParentDir
 addParentDir()
 from public.config import getGeneralConfig
 from public.logger import Logger
-import controllers.controller as controllers
+import task
 
 blinkerId = getGeneralConfig()['blinker_id']
 Blinker.mode("BLINKER_WIFI")
@@ -29,6 +29,7 @@ def data_callback(data):
 
 buttonRestart.attach(restart_callback)
 Blinker.attachData(data_callback)
+task.startTasks()
 Logger.v("Blinker启动成功!")
 
 if __name__ == '__main__':

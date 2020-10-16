@@ -1,7 +1,8 @@
-import fs from 'fs'
-import { execSync as exec } from 'child_process'
-import download from 'download'
-import { sendNotify } from '../publicTools/notice.js'
+const exec = require("child_process").execSync;
+const fs = require("fs");
+const download = require("download");
+const rp = require("request-promise");
+const { sendNotify } = require('../publicTools/notice.js')
 
 // 公共变量
 const JD_COOKIE = process.env.JD_COOKIE //cokie,多个用&隔开即可

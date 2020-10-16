@@ -19,8 +19,6 @@ jobs:
                    npm install
                    cd ..
             - name: Run app
-              run: |
-                 ls
-                 node js/test.js
+              run: node js/test.js
               env:
                   PUSH_KEY: ${{ secrets.PUSH_KEY }}

@@ -22,9 +22,6 @@ jobs:
         # python -m pip install --upgrade pip
         if [ -f python/requirements.txt ]; then pip install -r python/requirements.txt; fi
     - name: Run app
-      run: |
-         pwd
-         ls
-         python3 python/public/test.py
+      run: python3 python/public/test.py
       env:
           BLINKER_ID: ${{ secrets.BLINKER_ID }}

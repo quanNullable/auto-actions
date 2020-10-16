@@ -6,6 +6,7 @@ from comands import ALL_COMANDS
 from tools.path import addParentDir
 addParentDir()
 from public.logger import Logger
+from public.config import getGeneralConfig
 from tools.ip import getIPs
 from tools.notice import sendTextMsg
 import task
@@ -31,6 +32,8 @@ def executCommand(command):
                 result = '已开始执行'
             else:
                 result = '参数错误'
+        elif command.Name == ALL_COMANDS[5].Name:  #查看日志
+                result = _getSysLog(command.Parmas)
         else:
             result = '暂未完成'
         Logger.v('命令<' + command.Name + '>执行结果<' + str(result) + '>')
@@ -74,3 +77,22 @@ def _getCommandsHelp():
     else:
         return formatCommands(ALL_COMANDS)
 
+#获取日志
+def _getSysLog(name=None):
+    if name is None:
+       name = time.strftime("%Y-%m-%d",time.localtime(time.time()))
+    logPath = getGeneralConfig()['log_path']
+    logName = logPath + name + '.log'
+    result = ''
+    if os.path.exists(logName):
+        try:
+            f = open(logName, encoding='utf-8') 
+            result = f.read()
+        except Exception as e:
+            Logger.e('读取日志文件' + logName + '失败', e)
+            result = '读取日志失败'
+        finally:
+            f.close()
+    else:
+        result = '日志不存在'
+    return result

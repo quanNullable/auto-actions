@@ -30,6 +30,7 @@ ALL_COMANDS = [
    Command(name='帮助',func='获取命令帮助及用法',usage='帮助',parmas=None),
    Command(name='任务详情',func='获取定时任务的详细情况',usage='任务详情',parmas=None),
    Command(name='执行任务',func='立即执行指定的定时任务',usage='执行任务:name=xxx',parmas='DIC'),
+   Command(name='查看日志',func='查看指定日期日志文件(格式YYYY-MM-DD)',usage='查看日志:X-X-X',parmas='STR/NONE'),
 ]
 
 def findComandByStr(text):#根据用户输入尝试解析出对应命令

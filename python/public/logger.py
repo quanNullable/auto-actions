@@ -6,7 +6,6 @@ try:
    from config import getGeneralConfig
 except Exception:
    from .config import getGeneralConfig
-from Blinker import Blinker, BlinkerButton
 
 LOG_LEVEL = {
     'verbose': 0,  #都记录
@@ -50,13 +49,11 @@ class Logger:
             logger.error("<" + command + '>', exc_info=True)
         else:
             logger.error("<" + command + '>:' + str(detail))
-        blinker('ERROR:'+str(detail))
 
     @staticmethod
     def v(detail):
         logger = getLogger(LOG_LEVEL['verbose'] >= logLevel)
         logger.info(detail)
-        blinker(detail)
 
     @staticmethod
     def n(title, content):
@@ -73,13 +70,6 @@ class Logger:
         logger.warning('\n!!!重要!!!\n' + title + ':' + content,exc_info=True)
         import tools.notice.noticeManager as noticeManager
         noticeManager.sendNotice(title + ':' + content)
-        blinker('NOTICE:'+title + ':' + content)
-
-def blinker(text):
-    try:
-        Blinker.print(text)
-    except Exception as e:
-        pass
 
 if __name__ == '__main__':
     Logger.n('警告', '程序停止运行')

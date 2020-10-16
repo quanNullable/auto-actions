@@ -27,7 +27,7 @@ async function executeOneByOne() {
     await changeFile(content, cookieJDs[i]);
     console.log("替换变量完毕");
     try {
-      await exec("node execute.js  >> result.txt", { stdio: "inherit" });
+      await exec("node js/jd/execute.js  >> result.txt", { stdio: "inherit" });
     } catch (e) {
       console.log("执行异常:" + e);
     }
@@ -46,8 +46,8 @@ async function start() {
   console.log("下载代码完毕");
   await executeOneByOne();
   console.log("签到执行完毕");
-  await sendResult()
-  console.log("全部执行完毕");
+  // await sendResult()
+  // console.log("全部执行完毕");
 }
 
 async function sendResult(){

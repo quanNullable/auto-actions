@@ -19,7 +19,6 @@ jobs:
               run: |
                    cd js
                    npm install
-                   cd ..
             - name: Run app
               run: node js/jd/jdSign.js
               env:

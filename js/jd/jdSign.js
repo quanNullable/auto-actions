@@ -27,8 +27,8 @@ async function executeOneByOne() {
     await changeFile(content, cookieJDs[i]);
     console.log("替换变量完毕");
     try {
-      console.log('22222222',awaitexec("ls",{ stdio: "inherit" }))
-      await exec("node js/jd/execute.js  >> result.txt", { stdio: "inherit" });
+      console.log('22222222',await exec("ls",{ stdio: "inherit" }))
+      await exec("node ./jd/execute.js  >> result.txt", { stdio: "inherit" });
     } catch (e) {
       console.log("执行异常:" + e);
     }

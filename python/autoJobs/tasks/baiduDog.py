@@ -9,8 +9,11 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 HOST='https://pet-chain.duxiaoman.com'
 
 def autoCollect():
-    getVigorList()
-    lottery()
+    try:
+        getVigorList()
+        lottery()
+    except Exception as e:
+        Logger.e('百度莱茨狗一键收取元气失败',e)
 
 def getHeader(timestamp):
     return {

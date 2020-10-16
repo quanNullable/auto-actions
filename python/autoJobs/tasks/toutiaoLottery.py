@@ -45,6 +45,7 @@ cookies = [
 ]
 
 global COOKIE
+COOKIE = ''
 
 def getHeaders():
     return {
@@ -171,11 +172,14 @@ def joinLotery(no):
 
 
 def autoLottery():
-    global COOKIE
-    for cookie in cookies:
-        COOKIE = cookie
-        Logger.v('今日头条全民抽奖用户抽奖:' + COOKIE[0:15])
-        autoUserLottery()
+    try:
+        global COOKIE
+        for cookie in cookies:
+            COOKIE = cookie
+            Logger.v('今日头条全民抽奖用户抽奖:' + COOKIE[0:15])
+            autoUserLottery()
+    except Exception as e:
+        Logger.e('今日头条全民抽奖失败',e)
 
 def autoUserLottery():
     getWinList()

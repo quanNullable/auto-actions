@@ -8,6 +8,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 global cookie
 cookie = 'o3KV7W81C4e3mrG98jYPWrU8ZJKUyaqey1APSqHe6AqCceKDcQzbiWKtCK4X6BxbhaG96JYkPtPUBUCSieqAt3Y_0VlwKQyYAL58BSh7.LWyaBUdsFkXooBCFQjlqKJeBDw95grr0RzBhStFw7qw5ZMa3A18ERlrD_skDsdbQzUf.7F464wI_muCr0ROsB.jyHUHIAsRG9kcUFE0Er51C1thp7LJlZLLpxfasMHVE2j8L'
 
+
 def getCookies():
     return {
         'NTES_YD_SESS':
@@ -96,6 +97,13 @@ retryTimes = 0
 
 
 def autoCollectCoins():
+    try:
+        cheackToCollectCoins()
+    except Exception as e:
+        Logger.e('网易星球收取黑钻失败', e)
+
+
+def cheackToCollectCoins():
     # 1、请求首页数据，检查是否有coin可以收集。有则将coin保存到列表容器
     response = post(
         'https://star.8.163.com/api/home/index',

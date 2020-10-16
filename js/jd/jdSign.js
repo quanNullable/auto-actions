@@ -1,17 +1,14 @@
-import  fs from 'fs'
-import  {execSync as exec} from 'child_process'
-import  download from 'download'
+import fs from 'fs'
+import { execSync as exec } from 'child_process'
+import download from 'download'
 import { sendNotify } from '../publicTools/notice.js'
 
-console.log("开始执行脚本")
-
 // 公共变量
-const Secrets = {
-  JD_COOKIE: process.env.JD_COOKIE, //cokie,多个用&隔开即可
-  SyncUrl: process.env.SYNCURL, //签到地址,方便随时变动
-};
+const JD_COOKIE = process.env.JD_COOKIE //cokie,多个用&隔开即可
+const SyncUrl = 'https://raw.githubusercontent.com/NobyDa/Script/master/JD-DailyBonus/JD_DailyBonus.js'
+
 async function downFile() {
-  await download(Secrets.SyncUrl, "./", { filename: "temp.js" });
+  await download(SyncUrl, "./", { filename: "temp.js" });
 }
 
 async function changeFile(content, cookie) {
@@ -21,7 +18,7 @@ async function changeFile(content, cookie) {
 
 async function executeOneByOne() {
   let cookieJDs = [];
-  cookieJDs = Secrets.JD_COOKIE.split("&");
+  cookieJDs = JD_COOKIE.split("&");
   console.log(`当前共${cookieJDs.length}个账号需要签到`);
   const content = await fs.readFileSync("./temp.js", "utf8");
   for (var i = 0; i < cookieJDs.length; i++) {
@@ -39,27 +36,27 @@ async function executeOneByOne() {
 
 async function start() {
   console.log(`当前执行时间:${new Date().toString()}`);
-  if (!Secrets.JD_COOKIE) {
-    console.log("请填写 JD_COOKIE 后在继续");
-    return;
-  }
-  if (!Secrets.SyncUrl) {
-    console.log("请填写 SYNCURL 后在继续");
-    return;
-  }
+  // if (!JD_COOKIE) {
+  //   console.log("请填写 JD_COOKIE 后在继续");
+  //   return;
+  // }
   // 下载最新代码
   await downFile();
   console.log("下载代码完毕");
   await executeOneByOne();
+  console.log("签到执行完毕");
+  await sendResult()
   console.log("全部执行完毕");
-  if (Secrets.PUSH_KEY) {
-    const path = "./result.txt";
-    let content = "";
-    if (fs.existsSync(path)) {
-      content = fs.readFileSync(path, "utf8");
-    }
-    await sendNotify("京东签到", content);
-    console.log('发送结果完毕')
+}
+
+async function sendResult(){
+  const path = "./result.txt";
+  let content = "";
+  if (fs.existsSync(path)) {
+    content = fs.readFileSync(path, "utf8");
+  }
+  if (!(await sendNotify("京东签到", content))) {
+    console.log('京东签到', content)
   }
 }
 
@@ -97,8 +94,10 @@ function formatSeconds(value) {
   return result;
 }
 
-var time = Math.random() * 1000 * 60 * 60 * 3
-console.log(formatSeconds(time / 1000) + "后开始执行签到")
-setTimeout(() => {
-  start()
-}, time);
+start()
+
+// var time = Math.random() * 1000 * 60 * 60 * 3
+// console.log(formatSeconds(time / 1000) + "后开始执行签到")
+// setTimeout(() => {
+//   start()
+// }, time);

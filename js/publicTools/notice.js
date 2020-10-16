@@ -4,6 +4,9 @@ import rp from 'request-promise'
 const PUSH_KEY = process.env.PUSH_KEY //server酱推送消息
 
 async function sendNotify(text, desp) {
+  if (!PUSH_KEY) {
+    return false
+  }
   const options = {
     uri: `https://sc.ftqq.com/${PUSH_KEY}.send`,
     form: { text, desp },
@@ -12,8 +15,10 @@ async function sendNotify(text, desp) {
   }
   await rp.post(options).then(res => {
     console.log('发送通知成功', res)
+    return true
   }).catch((err) => {
     console.log('发送通知失败', err)
+    return false
   })
 }
 

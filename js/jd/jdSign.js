@@ -47,8 +47,8 @@ async function start() {
   console.log("下载代码完毕");
   await executeOneByOne();
   console.log("签到执行完毕");
-  // await sendResult()
-  // console.log("全部执行完毕");
+  await sendResult()
+  console.log("全部执行完毕");
 }
 
 async function sendResult(){
@@ -57,9 +57,7 @@ async function sendResult(){
   if (fs.existsSync(path)) {
     content = fs.readFileSync(path, "utf8");
   }
-  if (!(await sendNotify("京东签到", content))) {
-    console.log('京东签到', content)
-  }
+  console.log('京东签到结果:\n', content)
 }
 
 function formatSeconds(value) {
@@ -96,10 +94,8 @@ function formatSeconds(value) {
   return result;
 }
 
-start()
-
-// var time = Math.random() * 1000 * 60 * 60 * 3
-// console.log(formatSeconds(time / 1000) + "后开始执行签到")
-// setTimeout(() => {
-//   start()
-// }, time);
+var time = Math.random() * 1000 * 60 * 10
+console.log(formatSeconds(time / 1000) + "后开始执行签到")
+setTimeout(() => {
+  start()
+}, time);

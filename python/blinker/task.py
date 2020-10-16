@@ -6,10 +6,10 @@ addParentDir()
 from public.config import getGeneralConfig
 from public.logger import Logger
 from apscheduler.schedulers.background import BackgroundScheduler
-from tasks.wangyiPlanet import autoCollectCoins
-from tasks.baiduDog import autoCollect
-from tasks.toutiaoLottery import autoLottery
-from tasks.wechatLottery import joinWechatLottery
+from autoJobs.tasks.wangyiPlanet import autoCollectCoins
+from autoJobs.tasks.baiduDog import autoCollect
+from autoJobs.tasks.toutiaoLottery import autoLottery
+from autoJobs.tasks.wechatLottery import joinWechatLottery
 
 config = getGeneralConfig()
 

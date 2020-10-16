@@ -5,7 +5,7 @@ from public.fetch import post, get
 from public.logger import Logger
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-from tasks.wechatLottery2 import joinWechatLottery2
+from .wechatLottery2 import joinWechatLottery2
 
 HOST = 'https://lucky.nocode.com/v2/lottery/'
 SESSION_IDS = [

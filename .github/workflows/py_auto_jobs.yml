@@ -28,6 +28,6 @@ jobs:
     - name: Install dependencies
       run: |
         python3 -m pip install --upgrade pip
-        if [ -f python/requirements.txt ]; then sudo pip3 install -r python/requirements.txt; fi
+        if [ -f python/requirements.txt ]; then pip3 install -r python/requirements.txt; fi
     - name: Run app
       run: python3 python/autoJobs/app.py

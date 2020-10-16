@@ -6,7 +6,7 @@ try:
    from config import getGeneralConfig
 except Exception:
    from .config import getGeneralConfig
-import Blinker
+from Blinker import Blinker, BlinkerButton
 
 LOG_LEVEL = {
     'verbose': 0,  #都记录

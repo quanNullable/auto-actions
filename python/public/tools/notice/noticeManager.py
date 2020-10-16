@@ -2,7 +2,6 @@ from Blinker import Blinker
 from config import getGeneralConfig, getManagerInfo
 from .email import sendTextEmail
 from .wechat import sendWechatMsg
-
 from logger import Logger
 
 noticeWays = getGeneralConfig()['notice_ways']

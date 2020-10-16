@@ -2,5 +2,5 @@ node_modules
 package-lock.json
 test.*
 __pycache__/
-# config.conf
+config.conf
 Log

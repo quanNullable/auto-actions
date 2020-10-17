@@ -1,8 +1,7 @@
-from Blinker import Blinker
-from config import getGeneralConfig, getManagerInfo
+from public.config import getGeneralConfig, getManagerInfo
 from .email import sendTextEmail
 from .wechat import sendWechatMsg
-from logger import Logger
+from public.logger import Logger
 
 noticeWays = getGeneralConfig()['notice_ways']
 
@@ -16,3 +15,7 @@ def sendNotice(text):
     if 'wechat' in noticeWays:
         result =  sendWechatMsg('系统通知',text)
         Logger.v('发送微信通知结果:'+str(result))
+
+def senStrongNotice(text):
+    result =  sendTextEmail(manager['email'], text)
+    Logger.v('发送邮件通知结果:'+str(result))

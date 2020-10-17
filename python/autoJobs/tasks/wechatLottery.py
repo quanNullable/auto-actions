@@ -118,12 +118,75 @@ def joinLotery(productId):
         return result
 
 
+def checkIfWin(next=''):
+    api = ''
+    if next == '':
+        api = HOST.replace('lottery/', 'lottery?page=1&size=20&filter=lucky')
+    else:
+        api = HOST.replace('lottery/', next)
+    response = get(api, headers=getHeaders(), verify=False)
+    winList = response.get('data')
+    if not winList is None and len(winList) != 0:
+        result = []
+        for item in winList:
+            time.sleep(5)
+            if winDetail(item['id']) == 1:
+                name = item.get('prizes', {}).get('data', [{}])[0].get('name')
+                result.append(name)
+        if len(result) != 0:
+            noticeTxt = '微信抽奖助手中奖啦:\n' + '；\n'.join(result) + '。'
+            Logger.v(noticeTxt)
+            import public.tools.notice.noticeManager as noticeManager
+            noticeManager.senStrongNotice('恭喜!' + noticeTxt)
+        else:
+            Logger.v('微信抽奖助手都是垃圾奖项,呵呵')
+    else:
+        Logger.v('微信抽奖助手未获取到中奖列表')
+    # next = response['links']['next']
+    # if not next is None:
+    #     checkIfWin(next)
+
+
+def winDetail(id):
+    api = HOST.replace('v2/lottery', 'lottery') + id + '/result'
+    response = get(api, headers=getHeaders(), verify=False)
+    level = response.get('data', {}).get('prize', {}).get('level', 0)
+    return level
+
+
+def signIn():
+    api = HOST.replace('v2/lottery', 'daily_bonus')
+    response = post(api, headers=getHeaders(), verify=False)
+    Logger.v('微信抽奖助手签到结果:' + str(response))
+
+    
+def tryLuck():
+    for i in range(10):
+        api = HOST+'80CWRF4L8lr/join'
+        data = '{"form_id": "test"}'
+        response = post(api, headers=getHeaders(), data=data,verify=False)
+        result = response.get('ontime_wish')
+        if result is None:
+            Logger.v('微信抽奖助手轮盘抽奖结果:没机会了')
+            break
+        else:
+            luck = result.get('prize',{}).get('name','毛都没有')
+            Logger.v('微信抽奖助手轮盘抽奖结果:' + luck)
+            time.sleep(5)
+
 def joinWechatLottery1():
     global SESSION_ID
     for session in SESSION_IDS:
         SESSION_ID = session
         Logger.v('微信抽奖助手抽奖开始:' + session)
+        signIn()
+        time.sleep(5)
+        checkIfWin()
+        time.sleep(5)
         getLotteryListAndJoin()
+        time.sleep(5)
+        tryLuck()
+
 
 
 def joinWechatLottery():
@@ -132,6 +195,7 @@ def joinWechatLottery():
         time.sleep(10)
     except Exception as e:
         Logger.e('微信抽奖第一个失败', e)
+    return
     try:
         joinWechatLottery2()
         time.sleep(10)

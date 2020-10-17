@@ -4,8 +4,8 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from logger import Logger
-from config import getEmailConfig
+from public.logger import Logger
+from public.config import getEmailConfig
 
 emailConfig = getEmailConfig()
 #image包可以发送图片形式的附件

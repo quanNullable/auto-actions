@@ -253,8 +253,8 @@ def getWinList():
                   result.append('新中奖项:'+name+'('+des+'),填写地址'+('成功' if _configAdress(winRecordNo) else '失败'))
               noticeTxt = '今日头条全民抽奖中奖啦:\n' + '；\n'.join(result)+'。'
               Logger.v(noticeTxt)
-              import notice.noticeManager
-              notice.noticeManager.sendNoticeAnyway('恭喜!'+noticeTxt)
+              import public.tools.notice.noticeManager as noticeManager
+              noticeManager.senStrongNotice('恭喜!'+noticeTxt)
 
     else:
         Logger.e('今日头条全民抽奖获取中奖列表失败:', response['Msg'])

@@ -1,6 +1,6 @@
-from fetch import post
-from config import getGeneralConfig
-from logger import Logger
+from public.fetch import post
+from public.config import getGeneralConfig
+from public.logger import Logger
 
 PUSH_KEY = getGeneralConfig()['serverj_key']
 

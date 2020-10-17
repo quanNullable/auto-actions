@@ -23,9 +23,12 @@ def startRun():
     Logger.v('准备运行定时任务')
     delay = random.randint(1, 600)
     Logger.v('{}秒后开始运行定时任务'.format(delay))
-    # time.sleep(delay)
+    time.sleep(delay)
     startAllTasks()
     Logger.v('所有定时任务均已执行完毕')
 
-if __name__ == '__main__':
+def runTest():
     startRun()
+
+if __name__ == '__main__':
+    runTest()

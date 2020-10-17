@@ -97,11 +97,87 @@ def joinLotery(productId):
         return False
 
 
+def checkIfWin(page=1):
+    api = HOST + 'users/list/2?page={}&limit=20'.format(page)
+    response = get(api, headers=getHeaders(), verify=False)
+    winList = response.get('data', {}).get('data')
+    if not winList is None and len(winList) != 0:
+        result = []
+        for item in winList:
+            time.sleep(5)
+            winText = winDetail(item['id'])
+            if '一等奖' in winText:
+                result.append(winText)
+        if len(result) != 0:
+            noticeTxt = '微信活动中奖啦:\n' + '；\n'.join(result) + '。'
+            Logger.v(noticeTxt)
+            import public.tools.notice.noticeManager as noticeManager
+            noticeManager.senStrongNotice('恭喜!' + noticeTxt)
+        else:
+            Logger.v('微信活动第{}页都是垃圾奖项,呵呵'.format(page))
+    else:
+        Logger.v('微信活动未获取到中奖列表')
+    # next = response.get('data', {}).get('is_next')
+    # if next == 1:
+    #     checkIfWin(page + 1)
+
+
+def winDetail(id):
+    api = HOST + 'lotteries/' + id
+    response = get(api, headers=getHeaders(), verify=False)
+    winText = response.get('data', {}).get('lotteryEndInfo', {}).get(
+        'winPrizeInfo', {}).get('winText', '')
+    return winText
+
+def signIn():
+    api = HOST + 'sign/sign'
+    response = get(api, headers=getHeaders(), verify=False)
+    error = response.get("message",{}).get("error",{})
+    if error == '':
+       Logger.v('微信活动签到成功')
+    else:
+       Logger.e('微信活动签到失败',error)
+
+def _getReward(code):
+    api = HOST + 'tasks/{}'.format(code)
+    response = post(api, headers=getHeaders(), verify=False)
+    error = response.get("message",{}).get("error",{})
+    if error == '':
+       Logger.v('微信活动完成任务{}成功'.format(code))
+    else:
+       Logger.e('微信活动完成任务{}失败'.format(code),error)
+
+def getAllReward():
+    for i in range(215,219):
+        _getReward(i)
+        time.sleep(5)
+
+def _getRedMoney(code):
+    api = HOST + 'mall/limit_red_envelopes/{}'.format(code)
+    response = post(api, headers=getHeaders(), verify=False)
+    error = response.get("message",{}).get("error",{})
+    if error == '':
+       Logger.v('微信活动领取红包{}成功'.format(code))
+    else:
+       Logger.e('微信活动领取红包{}失败'.format(code),error)
+
+def getAllRedMoney():
+    for i in range(453,455):
+        _getRedMoney(i)
+        time.sleep(5)
+
 def joinWechatLottery2():
     global USER_INFO
     for user in USER_INFOS:
         USER_INFO = user
         Logger.v('微信活动抽奖抽奖开始:' + user['uid'])
+        getAllRedMoney()
+        signIn()
+        time.sleep(5)
+        getAllReward()
+        time.sleep(5)
+        checkIfWin()
+        time.sleep(5)
         getBigLotteryListAndJoin()
         time.sleep(5)
         getSmallLotteryListAndJoin()
